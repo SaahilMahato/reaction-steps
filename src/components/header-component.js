@@ -15,19 +15,20 @@ export class HeaderComponent extends LitElement {
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
+                flex-wrap: wrap;
             }
 
             .reaction-box {
-                padding: 5px 10px;
                 border-radius: 5px;
                 margin-right: 15px;
+                margin-bottom: 15px;
                 cursor: pointer;
                 min-width: 150px;
                 box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
             }
 
             .reaction-box p {
-                margin: 2px;
+                margin: 8px;
             }
 
             .reaction-box-header {

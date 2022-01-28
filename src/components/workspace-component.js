@@ -3,7 +3,9 @@ import { LitElement, html, css } from 'lit';
 export class WorkspaceComponent extends LitElement {
     static get styles() {
         return css`
-            
+            .wrapper {
+                padding: 20px;
+            }
         `;
     }
 
@@ -21,7 +23,8 @@ export class WorkspaceComponent extends LitElement {
         return html`
             <div class="wrapper">
                 <plate-component
-
+                    .rows=${this.selectedReaction.rows}
+                    .columns=${this.selectedReaction.columns}
                 >
                 </plate-component>
                 <table-component></table-component>
