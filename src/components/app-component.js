@@ -37,8 +37,8 @@ export class AppComponent extends LitElement {
       {
         name: 'Reaction 1',
         value: 1,
-        rows: 1,
-        columns: 1,
+        rows: 8,
+        columns: 12,
         selected: true,
       },
       {

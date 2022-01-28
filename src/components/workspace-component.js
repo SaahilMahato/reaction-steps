@@ -12,11 +12,16 @@ export class WorkspaceComponent extends LitElement {
     static get properties() {
         return {
             selectedReaction: { type: Object },
+            selectedWells: { type: Array },
         };
     }
 
     constructor() {
         super();
+
+        this.selectedReaction = {};
+
+        this.selectedWells = [];
     }
 
     render() {
@@ -25,12 +30,23 @@ export class WorkspaceComponent extends LitElement {
                 <plate-component
                     .rows=${this.selectedReaction.rows}
                     .columns=${this.selectedReaction.columns}
+                    .selectNewWells=${this.selectNewWells}
                 >
                 </plate-component>
                 <table-component></table-component>
             </div>
         `;
     }
+
+    selectNewWells = (checked, newWell) => {
+        if (checked)
+            this.selectedWells = [...this.selectedWells, newWell];
+        else {
+            this.selectedWells = this.selectedWells.filter(well => well !== newWell);
+        }
+
+        console.log(this.selectedWells);
+    };
 }
  
 customElements.define('workspace-component', WorkspaceComponent);
