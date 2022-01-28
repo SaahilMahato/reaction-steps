@@ -8,17 +8,14 @@ export class PlateComponent extends LitElement {
             }
 
             th {
-                width: 10px;
-                text-align: start;
-                padding-left: 12px;
+                text-align: center;
+                padding: 5px;
+                color: #616161;
+
             }
 
             td {
-                width: 10px;
-            }
-
-            paper-checkbox {
-                border-radius: 50%;
+                padding: 5px;
             }
         `;
     }
