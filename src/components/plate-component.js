@@ -9,13 +9,12 @@ export class PlateComponent extends LitElement {
 
             th {
                 text-align: center;
-                padding: 5px;
+                padding: 8px;
                 color: #616161;
-
             }
 
             td {
-                padding: 5px;
+                padding: 8px;
             }
         `;
     }
@@ -48,23 +47,21 @@ export class PlateComponent extends LitElement {
                     <thead>
                         <tr>
                             <th></th>
-                            ${this.columnTitle.map(title => html`<th scope="col">${title}</th>`)}
+                            ${this.columnTitle.map(cTitle => html`<th scope="col">${cTitle}</th>`)}
                         </tr>
                     </thead>
                     <tbody>
-                        ${this.rowTitle.map(rowTitle => html`
+                        ${this.rowTitle.map(rTitle => html`
                             <tr>
-                                <th scope="row">${rowTitle}</th>
-                                ${this.columnTitle.map(columnTitle=> html`
+                                <th scope="row">${rTitle}</th>
+                                ${this.columnTitle.map(cTitle=> html`
                                     <td>
-                                        <div>
-                                            <well-component type="checkbox"
-                                                .checked=${false}
-                                                .value=${rowTitle+columnTitle}
-                                                .selectNewWells=${this.selectNewWells}
-                                            >
-                                            </well-component>
-                                        </div>
+                                        <well-component
+                                            .checked=${false}
+                                            .value=${rTitle+cTitle}
+                                            .selectNewWells=${this.selectNewWells}
+                                        >
+                                        </well-component>
                                     </td>
                                 `)}
                             </tr>
@@ -84,6 +81,18 @@ export class PlateComponent extends LitElement {
         for (let i=1; i<this.columns+1; i++)
             columns.push(i);
         this.columnTitle = [...columns];
+    }
+
+    updated() {
+        const wells = this.shadowRoot.querySelectorAll("well-component");
+        for (let i=0; i<wells.length; i++) {
+            wells[i].checked = false;
+            const well = wells[i].shadowRoot.querySelector(".checked");
+            if(well) {
+                well.classList.remove("checked");
+                well.classList.add("unchecked");
+            }
+        }
     }
 }
  

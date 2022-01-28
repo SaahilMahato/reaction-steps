@@ -41,9 +41,8 @@ export class WorkspaceComponent extends LitElement {
     selectNewWells = (checked, newWell) => {
         if (checked)
             this.selectedWells = [...this.selectedWells, newWell];
-        else {
+        else
             this.selectedWells = this.selectedWells.filter(well => well !== newWell);
-        }
 
         console.log(this.selectedWells);
     };

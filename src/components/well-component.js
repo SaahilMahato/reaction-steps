@@ -43,7 +43,7 @@ export class WellComponent extends LitElement {
 
     render() {
         return html`
-            <div 
+            <div
                 class="wrapper ${this.checked? "checked": "unchecked"}"
                 @click=${this.onClick}
             >
@@ -51,7 +51,7 @@ export class WellComponent extends LitElement {
         `;
     }
 
-    onClick = e => {
+    onClick = () => {
         this.checked = !this.checked;
         this.selectNewWells(this.checked, this.value);
     }
