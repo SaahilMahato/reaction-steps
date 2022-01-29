@@ -51,14 +51,15 @@ export class PlateComponent extends LitElement {
                         </tr>
                     </thead>
                     <tbody>
-                        ${this.rowTitle.map(rTitle => html`
+                        ${this.rowTitle.map((rTitle, rIndex) => html`
                             <tr>
                                 <th scope="row">${rTitle}</th>
-                                ${this.columnTitle.map(cTitle=> html`
+                                ${this.columnTitle.map((cTitle, cIndex)=> html`
                                     <td>
                                         <well-component
                                             .checked=${false}
-                                            .value=${rTitle+cTitle}
+                                            .rowIndex=${rIndex}
+                                            .columnIndex=${cIndex}
                                             .selectNewWells=${this.selectNewWells}
                                         >
                                         </well-component>

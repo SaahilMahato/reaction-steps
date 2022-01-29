@@ -26,7 +26,8 @@ export class WellComponent extends LitElement {
     static get properties() {
         return {
             checked: { type: Boolean },
-            value: { type: String },
+            rowIndex: { type: Number },
+            columnIndex: { type: Number },
             selectNewWells: { type: Function },
         };
     }
@@ -36,7 +37,8 @@ export class WellComponent extends LitElement {
 
         this.checked = false;
 
-        this.value = "";
+        this.rowIndex = 0;
+        this.columnIndex = 0;
 
         this.selectNewWells = () => {};
     }
@@ -53,7 +55,7 @@ export class WellComponent extends LitElement {
 
     onClick = () => {
         this.checked = !this.checked;
-        this.selectNewWells(this.checked, this.value);
+        this.selectNewWells(this.checked, this.rowIndex, this.columnIndex);
     }
 }
  

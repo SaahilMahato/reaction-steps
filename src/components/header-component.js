@@ -23,7 +23,7 @@ export class HeaderComponent extends LitElement {
                 margin-right: 15px;
                 margin-bottom: 15px;
                 cursor: pointer;
-                min-width: 150px;
+                min-width: 200px;
                 box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
             }
 

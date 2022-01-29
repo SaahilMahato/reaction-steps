@@ -33,18 +33,19 @@ export class WorkspaceComponent extends LitElement {
                     .selectNewWells=${this.selectNewWells}
                 >
                 </plate-component>
-                <table-component></table-component>
+                <table-component
+                    .selectedWells=${this.selectedWells}
+                ></table-component>
             </div>
         `;
     }
 
-    selectNewWells = (checked, newWell) => {
+    selectNewWells = (checked, rowIndex, columnIndex) => {
+        const newWell = this.selectedReaction.wells[rowIndex][columnIndex];
         if (checked)
             this.selectedWells = [...this.selectedWells, newWell];
         else
             this.selectedWells = this.selectedWells.filter(well => well !== newWell);
-
-        console.log(this.selectedWells);
     };
 }
  
