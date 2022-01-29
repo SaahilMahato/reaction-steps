@@ -8,7 +8,7 @@ import { LitElement, html, css } from 'lit';
 
 import './components/app-component';
 import './components/header-component';
-import './components/workspace-component';
+import './components/reaction-component';
 import './components/plate-component';
 import './components/well-component';
 import './components/table-component';

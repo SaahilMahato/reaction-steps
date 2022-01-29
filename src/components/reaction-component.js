@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-export class WorkspaceComponent extends LitElement {
+export class ReactionComponent extends LitElement {
     static get styles() {
         return css`
             .wrapper {
@@ -49,5 +49,5 @@ export class WorkspaceComponent extends LitElement {
     };
 }
  
-customElements.define('workspace-component', WorkspaceComponent);
+customElements.define('reaction-component', ReactionComponent);
  

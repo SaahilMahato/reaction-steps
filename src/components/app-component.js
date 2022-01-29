@@ -35,11 +35,11 @@ export class AppComponent extends LitElement {
                     .onReactionBoxClick=${this.onReactionBoxClick}
                 ></header-component>
 
-                <workspace-component
+                <reaction-component
                     .selectedReaction=${this.selectedReaction}
                     .selectedWells=${[]}
                 >
-                </workspace-component>
+                </reaction-component>
             </div>
         `;
     }
