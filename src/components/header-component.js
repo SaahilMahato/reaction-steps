@@ -1,6 +1,12 @@
 import { LitElement, html, css } from 'lit';
 
 export class HeaderComponent extends LitElement {
+
+    /**
+     * Set styles of the app componenet
+     * 
+     * @returns {css} - css
+     */
     static get styles() {
         return css`
             .wrapper {
@@ -58,13 +64,32 @@ export class HeaderComponent extends LitElement {
         `;
     }
 
+    /**
+     * Sets properties of the component.
+     * 
+     * @returns {Object} - An object that contains all the properties
+     */
     static get properties() {
         return {
+            /**
+             * The array that contains all data of the reaction.
+             * 
+             * @type {Array}
+             */
             reactions: { type: Array },
+
+            /**
+             * The method that is called when reaction box is clicked.
+             * 
+             * @type {Function}
+             */
             onReactionBoxClick : { type: Function },
         };
     }
 
+    /**
+     * Constructor of the class.
+     */
     constructor() {
         super();
 
@@ -73,6 +98,11 @@ export class HeaderComponent extends LitElement {
         this.onReactionBoxClick = () => {};
     }
 
+    /**
+     * Renders the component.
+     * 
+     * @returns {html} - The markup of the component.
+     */
     render() {
         return html`
             <div class="wrapper">

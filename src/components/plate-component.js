@@ -1,6 +1,12 @@
 import { LitElement, html, css } from 'lit';
 
 export class PlateComponent extends LitElement {
+
+    /**
+     * Set styles of the app componenet
+     * 
+     * @returns {css} - css
+     */
     static get styles() {
         return css`
             table {
@@ -19,14 +25,39 @@ export class PlateComponent extends LitElement {
         `;
     }
 
+    /**
+     * Sets properties of the component.
+     * 
+     * @returns {Object} - An object that contains all the properties
+     */
     static get properties() {
         return {
+            /**
+             * The number of rows that the plate will have.
+             * 
+             * @type {Number}
+             */
             rows: { type: Number },
+
+            /**
+             * The number of columns that the plate will have.
+             * 
+             * @type {Number}
+             */
             columns: { type: Number },
+
+            /**
+             * The method that adds new wells to the reaction.
+             * 
+             * @type {Function} 
+             */
             selectNewWells: { type: Function },
         };
     }
 
+     /**
+     * Constructor of the class.
+     */
     constructor() {
         super();
 
@@ -39,6 +70,11 @@ export class PlateComponent extends LitElement {
         this.selectNewWells = () => {};
     }
 
+    /**
+     * Renders the component.
+     * 
+     * @returns {html} - The markup of the component.
+     */
     render() {
         this.calculateTableHeads();
         return html`
@@ -73,6 +109,11 @@ export class PlateComponent extends LitElement {
         `;
     }
 
+    /**
+     * Calculate the headings of the wells and adds
+     * to the rowTitle and columnTitle based on 
+     * the number of rows and columns.
+     */
     calculateTableHeads = () => {
         const alpha = Array.from(Array(this.rows)).map((e, i) => i + 65);
         const alphabets = alpha.map((x) => String.fromCharCode(x));
@@ -84,6 +125,12 @@ export class PlateComponent extends LitElement {
         this.columnTitle = [...columns];
     }
 
+    /**
+     * Updated lifecycle event that
+     * fetches all well component inside this component and
+     * sets its checked property to false and removes 
+     * checked from class list and adds unchecked to class list.
+     */
     updated() {
         const wells = this.shadowRoot.querySelectorAll("well-component");
         for (let i=0; i<wells.length; i++) {

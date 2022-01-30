@@ -2,8 +2,6 @@ export const reactions = [
     {
         name: 'Reaction 1',
         value: 1,
-        rows: 2,
-        columns: 4,
         selected: true,
         wells: [
                 [
@@ -111,8 +109,6 @@ export const reactions = [
     {
         name: 'Reaction 2',
         value: 2,
-        rows: 4,
-        columns: 6,
         selected: false,
         wells: [
             [
@@ -416,8 +412,6 @@ export const reactions = [
     {
         name: 'Reaction 3',
         value: 3,
-        rows: 5,
-        columns: 8,
         selected: false,
         wells: [
             [
@@ -915,8 +909,6 @@ export const reactions = [
     {
         name: 'Reaction 4',
         value: 4,
-        rows: 8,
-        columns: 12,
         selected: false,
         wells: [
             [

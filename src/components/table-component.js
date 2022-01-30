@@ -1,6 +1,11 @@
 import { LitElement, html, css } from 'lit';
 
 export class TableComponent extends LitElement {
+    /**
+     * Set styles of the app componenet
+     * 
+     * @returns {css} - css
+     */
     static get styles() {
         return css`
             .wrapper {
@@ -41,18 +46,37 @@ export class TableComponent extends LitElement {
         `;
     }
 
+    /**
+     * Sets properties of the component.
+     * 
+     * @returns {Object} - An object that contains all the properties
+     */
     static get properties() {
         return {
+
+            /**
+             * The wells that the user selected.
+             * 
+             * @type {Array}
+             */
             selectedWells: { type: Array },
         };
     }
 
+    /**
+     * Constructor of the class.
+     */
     constructor() {
         super();
 
         this.selectedWells = [];
     }
 
+    /**
+     * Renders the component.
+     * 
+     * @returns {html} - The markup of the component.
+     */
     render() {
         return html`
             <div class="wrapper">
