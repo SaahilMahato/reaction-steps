@@ -74,8 +74,8 @@ export class ReactionComponent extends LitElement {
      * Adds new well to the selectedWells property.
      * 
      * @param {Boolean} checked - denotes whether the well is checked or unchecked.
-     * @param {*} rowIndex - the index of row of the well.
-     * @param {*} columnIndex - the index of column of the well.
+     * @param {Number} rowIndex - the index of row of the well.
+     * @param {Number} columnIndex - the index of column of the well.
      */
     selectNewWells = (checked, rowIndex, columnIndex) => {
         const newWell = this.selectedReaction.wells[rowIndex][columnIndex]; // declare a new variable to prevent mutation
