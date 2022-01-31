@@ -18,8 +18,8 @@ export class PlateComponent extends LitElement {
             }
 
             table {
-                width: 800px;
-                height: 400px;
+                width: 720px;
+                height: 480px;
                 table-layout: fixed ;
             }
 
@@ -27,10 +27,6 @@ export class PlateComponent extends LitElement {
                 text-align: center;
                 padding: 8px;
                 color: #616161;
-            }
-
-            td {
-                padding: 0.5%;
             }
         `;
     }
@@ -134,7 +130,7 @@ export class PlateComponent extends LitElement {
                 </table>
 
                 <paper-dropdown-menu label="Layout">
-                    <paper-listbox slot="dropdown-content" selected="0">
+                    <paper-listbox slot="dropdown-content" selected="-1">
                         <paper-item @click=${()=>this.changePlateConfig({rows: 2, columns: 4})}>Rows: 2, Columns: 4</paper-item>
                         <paper-item @click=${()=>this.changePlateConfig({rows: 3, columns: 6})}>Rows: 3, Columns: 6</paper-item>
                         <paper-item @click=${()=>this.changePlateConfig({rows: 4, columns: 8})}>Rows: 4, Columns: 8</paper-item>
@@ -172,10 +168,11 @@ export class PlateComponent extends LitElement {
         const wells = this.shadowRoot.querySelectorAll("well-component");
         for (let i=0; i<wells.length; i++) {
             wells[i].checked = false;
-            const well = wells[i].shadowRoot.querySelector(".wrapper");
+            const well = wells[i].shadowRoot.querySelector(".checked");
             if(well) {
                 well.classList.remove("checked");
                 well.classList.add("unchecked");
+            
             }
         }
     }

@@ -14,8 +14,8 @@ export class AppComponent extends LitElement {
             .container {
                 width: 100vw;
                 height: 100vh;
-        }
-    `;
+            }
+        `;
     }
 
     /**

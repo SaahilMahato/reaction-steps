@@ -10,9 +10,10 @@ export class WellComponent extends LitElement {
     static get styles() {
         return css`
             .wrapper {
+                margin: 0 auto;
                 border-radius: 50%;
-                width: 100%;
-                height: 100%;
+                width: 90%;
+                height: 75%;
                 cursor: pointer;
             }
 
@@ -84,7 +85,8 @@ export class WellComponent extends LitElement {
      * @returns {html} - The markup of the component.
      */
     render() {
-        const classes = { invalid: this.wellIndex<0,
+        const classes = { 
+            invalid: this.wellIndex<0,
             checked: this.checked && !this.invalid,
             unchecked: !this.checked && !this.invalid
         }
@@ -102,7 +104,7 @@ export class WellComponent extends LitElement {
      * Changes checked state and call selectNewWells() from reaction component.
      */
     onClick = () => {
-        if(this.wellIndex<0)
+        if(this.wellIndex < 0)
             return;
         this.checked = !this.checked;
         this.selectNewWells(this.checked, this.wellIndex);

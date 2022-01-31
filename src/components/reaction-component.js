@@ -116,6 +116,11 @@ export class ReactionComponent extends LitElement {
             this.selectedWells = this.selectedWells.filter(well => well !== newWell); // filter well if checked
     };
 
+    /**
+     * Calculates the dimensions/ configuration of the plate based on the number of wells.
+     * 
+     * @returns {undefined}
+     */
     determinePlateConfig = () => {
         for(let i=0; i<this.defaultPlateConfigs.length; i++) {
             if(this.defaultPlateConfigs[i].rows * this.defaultPlateConfigs[i].columns >= this.selectedReaction.wells.length) {
@@ -126,6 +131,13 @@ export class ReactionComponent extends LitElement {
         }
     }
 
+    /**
+     * Changes the configuration of the plate according to user input if valid.
+     * 
+     * @param {Object} config - Object that contains the number of rows and columns of the plate. 
+     * 
+     * @returns {undefined} 
+     */
     changePlateConfig = (config) => {
         if (config.rows * config.columns < this.selectedReaction.wells.length) {
             alert("Invalid Configuration for this reaction");
