@@ -58,8 +58,9 @@ export class ReactionComponent extends LitElement {
         return html`
             <div class="wrapper">
                 <plate-component
-                    .rows=${this.selectedReaction.wells.length}
-                    .columns=${this.selectedReaction.wells[0].length}
+                    .rows=${2}
+                    .columns=${4}
+                    .numberOfWells=${this.selectedReaction.wells.length}
                     .selectNewWells=${this.selectNewWells}
                 >
                 </plate-component>
@@ -74,11 +75,10 @@ export class ReactionComponent extends LitElement {
      * Adds new well to the selectedWells property.
      * 
      * @param {Boolean} checked - denotes whether the well is checked or unchecked.
-     * @param {Number} rowIndex - the index of row of the well.
-     * @param {Number} columnIndex - the index of column of the well.
+     * @param {Number} wellIndex - the index of the well.
      */
-    selectNewWells = (checked, rowIndex, columnIndex) => {
-        const newWell = this.selectedReaction.wells[rowIndex][columnIndex]; // declare a new variable to prevent mutation
+    selectNewWells = (checked, wellIndex) => {
+        const newWell = this.selectedReaction.wells[wellIndex]; // declare a new variable to prevent mutation
         if (checked)
             this.selectedWells = [...this.selectedWells, newWell]; // add well if checked
         else

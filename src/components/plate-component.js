@@ -50,6 +50,13 @@ export class PlateComponent extends LitElement {
             columns: { type: Number },
 
             /**
+             * The number of wells that the plate will have.
+             * 
+             * @type {Number}
+             */
+            numberOfWells: { type: Number },
+
+            /**
              * The method that adds new wells to the reaction.
              * 
              * @type {Function} 
@@ -69,6 +76,8 @@ export class PlateComponent extends LitElement {
 
         this.rowTitle = [];
         this.columnTitle = [];
+
+        this.numberOfWells = 0;
 
         this.selectNewWells = () => {};
     }
@@ -98,8 +107,7 @@ export class PlateComponent extends LitElement {
                                     <td style=${styleMap(cellStyle)}>
                                         <well-component
                                             .checked=${false}
-                                            .rowIndex=${rIndex}
-                                            .columnIndex=${cIndex}
+                                            .wellIndex=${((rIndex*this.columns)+cIndex)<this.numberOfWells?(rIndex*this.columns)+cIndex: -1}
                                             .selectNewWells=${this.selectNewWells}
                                         >
                                         </well-component>
@@ -147,6 +155,11 @@ export class PlateComponent extends LitElement {
         }
     }
 
+    /**
+     * Calculates the size of each cell based on the number of rows and columns.
+     * 
+     * @returns {object} - object that has the values of width and height.
+     */
     calculateCellSize = () => {
         const width = 600/this.columns;
         const height = 300/this.rows;
@@ -155,7 +168,6 @@ export class PlateComponent extends LitElement {
             width: parseInt(width) + 'px',
             height: parseInt(height) + 'px'
         }
-        console.log(style);
         return style;
     }
 }

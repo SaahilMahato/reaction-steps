@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { classMap } from 'lit-html/directives/class-map.js';
 
 export class WellComponent extends LitElement {
     /**
@@ -21,9 +22,15 @@ export class WellComponent extends LitElement {
             }
 
             .unchecked {
+                background-color: grey;
+                border: none;
+            }
+
+            .invalid {
                 background-color: white;
                 border: solid 1px #A4A4A4;
                 border-style: dashed;
+                cursor: auto !important;
             }
         `;
     }
@@ -43,18 +50,11 @@ export class WellComponent extends LitElement {
             checked: { type: Boolean },
 
             /**
-             * The row index of the well.
+             * The index of the well.
              * 
              * @type {Number}
              */
-            rowIndex: { type: Number },
-
-            /**
-             * The column index of the well.
-             * 
-             * @type {Number}
-             */
-            columnIndex: { type: Number },
+            wellIndex: { type: Number },
 
             /**
              * The method that adds new wells to the reaction.
@@ -71,8 +71,7 @@ export class WellComponent extends LitElement {
     constructor() {
         super();
 
-        this.rowIndex = 0;
-        this.columnIndex = 0;
+        this.wellIndex = 0;
 
         this.checked = false;
 
@@ -85,9 +84,13 @@ export class WellComponent extends LitElement {
      * @returns {html} - The markup of the component.
      */
     render() {
+        const classes = { invalid: this.wellIndex<0,
+            checked: this.checked && !this.invalid,
+            unchecked: !this.checked && !this.invalid
+        }
         return html`
             <div
-                class="wrapper ${this.checked? "checked": "unchecked"}"
+                class="wrapper ${classMap(classes)}"
                 @click=${this.onClick}
             >
             </div>
@@ -99,8 +102,10 @@ export class WellComponent extends LitElement {
      * Changes checked state and call selectNewWells() from reaction component.
      */
     onClick = () => {
+        if(this.wellIndex<0)
+            return;
         this.checked = !this.checked;
-        this.selectNewWells(this.checked, this.rowIndex, this.columnIndex);
+        this.selectNewWells(this.checked, this.wellIndex);
     }
 }
  
