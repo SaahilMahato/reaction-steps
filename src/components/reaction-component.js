@@ -47,6 +47,14 @@ export class ReactionComponent extends LitElement {
         this.selectedReaction = {};
 
         this.selectedWells = [];
+    
+        this.allWells = [];
+
+        this.defaultTableConfigs = [
+            {rows: 2, columns: 4},
+            {rows: 4, columns: 8},
+            {rows: 8, columns: 12}
+        ]
     }
 
     /**
@@ -55,17 +63,19 @@ export class ReactionComponent extends LitElement {
      * @returns {html} - The markup of the component.
      */
     render() {
+        const config = this.determineTableConfig();
+        this.allWells = [...this.selectedReaction.wells]
         return html`
             <div class="wrapper">
                 <plate-component
-                    .rows=${2}
-                    .columns=${4}
+                    .rows=${config.rows}
+                    .columns=${config.columns}
                     .numberOfWells=${this.selectedReaction.wells.length}
                     .selectNewWells=${this.selectNewWells}
                 >
                 </plate-component>
                 <table-component
-                    .selectedWells=${this.selectedWells}
+                    .selectedWells=${this.selectedWells.length>0?this.selectedWells:this.allWells}
                 ></table-component>
             </div>
         `;
@@ -84,6 +94,13 @@ export class ReactionComponent extends LitElement {
         else
             this.selectedWells = this.selectedWells.filter(well => well !== newWell); // filter well if checked
     };
+
+    determineTableConfig = () => {
+        for(let i=0; i<this.defaultTableConfigs.length; i++) {
+            if(this.defaultTableConfigs[i].rows * this.defaultTableConfigs[i].columns >= this.selectedReaction.wells.length)
+                return this.defaultTableConfigs[i];
+        }
+    }
 }
  
 customElements.define('reaction-component', ReactionComponent);

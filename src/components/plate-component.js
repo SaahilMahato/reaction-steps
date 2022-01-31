@@ -166,7 +166,7 @@ export class PlateComponent extends LitElement {
 
         const style = {
             width: parseInt(width) + 'px',
-            height: parseInt(height) + 'px'
+            height: parseInt(height) - 15 + 'px'
         }
         return style;
     }

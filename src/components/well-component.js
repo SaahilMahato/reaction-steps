@@ -22,7 +22,7 @@ export class WellComponent extends LitElement {
             }
 
             .unchecked {
-                background-color: grey;
+                background-color: lightgray;
                 border: none;
             }
 
