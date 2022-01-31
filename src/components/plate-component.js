@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { styleMap } from 'lit-html/directives/style-map.js';
 
 export class PlateComponent extends LitElement {
 
@@ -11,6 +12,8 @@ export class PlateComponent extends LitElement {
         return css`
             table {
                 margin: 0 auto;
+                width: 600px;
+                height: 300px;
             }
 
             th {
@@ -20,7 +23,7 @@ export class PlateComponent extends LitElement {
             }
 
             td {
-                padding: 8px;
+                padding: 0.5%;
             }
         `;
     }
@@ -77,6 +80,7 @@ export class PlateComponent extends LitElement {
      */
     render() {
         this.calculateTableHeads();
+        const cellStyle = this.calculateCellSize();
         return html`
             <div class="wrapper">
                 <table>
@@ -91,7 +95,7 @@ export class PlateComponent extends LitElement {
                             <tr>
                                 <th scope="row">${rTitle}</th>
                                 ${this.columnTitle.map((cTitle, cIndex)=> html`
-                                    <td>
+                                    <td style=${styleMap(cellStyle)}>
                                         <well-component
                                             .checked=${false}
                                             .rowIndex=${rIndex}
@@ -135,12 +139,24 @@ export class PlateComponent extends LitElement {
         const wells = this.shadowRoot.querySelectorAll("well-component");
         for (let i=0; i<wells.length; i++) {
             wells[i].checked = false;
-            const well = wells[i].shadowRoot.querySelector(".checked");
+            const well = wells[i].shadowRoot.querySelector(".wrapper");
             if(well) {
                 well.classList.remove("checked");
                 well.classList.add("unchecked");
             }
         }
+    }
+
+    calculateCellSize = () => {
+        const width = 600/this.columns;
+        const height = 300/this.rows;
+
+        const style = {
+            width: parseInt(width) + 'px',
+            height: parseInt(height) + 'px'
+        }
+        console.log(style);
+        return style;
     }
 }
  

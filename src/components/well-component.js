@@ -10,8 +10,8 @@ export class WellComponent extends LitElement {
         return css`
             .wrapper {
                 border-radius: 50%;
-                width: 32px;
-                height: 32px;
+                width: 100%;
+                height: 100%;
                 cursor: pointer;
             }
 
