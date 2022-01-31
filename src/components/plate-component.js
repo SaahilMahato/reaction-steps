@@ -1,5 +1,7 @@
 import { LitElement, html, css } from 'lit';
-import { styleMap } from 'lit-html/directives/style-map.js';
+import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import '@polymer/paper-listbox/paper-listbox.js';
+import '@polymer/paper-item/paper-item.js';
 
 export class PlateComponent extends LitElement {
 
@@ -10,10 +12,15 @@ export class PlateComponent extends LitElement {
      */
     static get styles() {
         return css`
+            .wrapper {
+                display: flex;
+                justify-content: space-evenly;
+            }
+
             table {
-                margin: 0 auto;
-                width: 600px;
-                height: 300px;
+                width: 800px;
+                height: 400px;
+                table-layout: fixed ;
             }
 
             th {
@@ -62,6 +69,13 @@ export class PlateComponent extends LitElement {
              * @type {Function} 
              */
             selectNewWells: { type: Function },
+
+            /**
+             * The method that changes palte Config.
+             * 
+             * @type {Function} 
+             */
+            changePlateConfig: { type: Function },
         };
     }
 
@@ -80,6 +94,8 @@ export class PlateComponent extends LitElement {
         this.numberOfWells = 0;
 
         this.selectNewWells = () => {};
+
+        this.changePlateConfig = () => {};
     }
 
     /**
@@ -89,7 +105,6 @@ export class PlateComponent extends LitElement {
      */
     render() {
         this.calculateTableHeads();
-        const cellStyle = this.calculateCellSize();
         return html`
             <div class="wrapper">
                 <table>
@@ -104,7 +119,7 @@ export class PlateComponent extends LitElement {
                             <tr>
                                 <th scope="row">${rTitle}</th>
                                 ${this.columnTitle.map((cTitle, cIndex)=> html`
-                                    <td style=${styleMap(cellStyle)}>
+                                    <td>
                                         <well-component
                                             .checked=${false}
                                             .wellIndex=${((rIndex*this.columns)+cIndex)<this.numberOfWells?(rIndex*this.columns)+cIndex: -1}
@@ -117,6 +132,16 @@ export class PlateComponent extends LitElement {
                         `)}
                     </tbody>
                 </table>
+
+                <paper-dropdown-menu label="Layout">
+                    <paper-listbox slot="dropdown-content" selected="0">
+                        <paper-item @click=${()=>this.changePlateConfig({rows: 2, columns: 4})}>Rows: 2, Columns: 4</paper-item>
+                        <paper-item @click=${()=>this.changePlateConfig({rows: 3, columns: 6})}>Rows: 3, Columns: 6</paper-item>
+                        <paper-item @click=${()=>this.changePlateConfig({rows: 4, columns: 8})}>Rows: 4, Columns: 8</paper-item>
+                        <paper-item @click=${()=>this.changePlateConfig({rows: 6, columns: 10})}>Rows: 6, Columns: 10</paper-item>
+                        <paper-item @click=${()=>this.changePlateConfig({rows: 8, columns: 12})}>Rows: 8, Columns: 12</paper-item>
+                    </paper-listbox>
+                </paper-dropdown-menu>
             </div>
         `;
     }
@@ -153,22 +178,6 @@ export class PlateComponent extends LitElement {
                 well.classList.add("unchecked");
             }
         }
-    }
-
-    /**
-     * Calculates the size of each cell based on the number of rows and columns.
-     * 
-     * @returns {object} - object that has the values of width and height.
-     */
-    calculateCellSize = () => {
-        const width = 600/this.columns;
-        const height = 300/this.rows;
-
-        const style = {
-            width: parseInt(width) + 'px',
-            height: parseInt(height) - 15 + 'px'
-        }
-        return style;
     }
 }
  

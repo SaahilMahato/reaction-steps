@@ -35,6 +35,20 @@ export class ReactionComponent extends LitElement {
              * @type {Array}
              */
             selectedWells: { type: Array },
+
+            /**
+             * The number of rows of the plate.
+             * 
+             * @type {Number}
+             */
+            rows: { type: Number },
+
+            /**
+             * The number of columns of the plate.
+             * 
+             * @type {Number}
+             */
+            columns: { type: Number }
         };
     }
 
@@ -44,13 +58,18 @@ export class ReactionComponent extends LitElement {
     constructor() {
         super();
 
+        this.rows = 0;
+        this.columns = 0;
+
         this.selectedReaction = {};
 
         this.selectedWells = [];
     
         this.allWells = [];
 
-        this.defaultTableConfigs = [
+        this.isCustomLayout = false;
+
+        this.defaultPlateConfigs = [
             {rows: 2, columns: 4},
             {rows: 4, columns: 8},
             {rows: 8, columns: 12}
@@ -63,15 +82,17 @@ export class ReactionComponent extends LitElement {
      * @returns {html} - The markup of the component.
      */
     render() {
-        const config = this.determineTableConfig();
-        this.allWells = [...this.selectedReaction.wells]
+        if (!this.isCustomLayout) this.determinePlateConfig();
+        this.isCustomLayout = false;
+        this.allWells = [...this.selectedReaction.wells];
         return html`
             <div class="wrapper">
                 <plate-component
-                    .rows=${config.rows}
-                    .columns=${config.columns}
+                    .rows=${this.rows}
+                    .columns=${this.columns}
                     .numberOfWells=${this.selectedReaction.wells.length}
                     .selectNewWells=${this.selectNewWells}
+                    .changePlateConfig=${this.changePlateConfig}
                 >
                 </plate-component>
                 <table-component
@@ -95,11 +116,24 @@ export class ReactionComponent extends LitElement {
             this.selectedWells = this.selectedWells.filter(well => well !== newWell); // filter well if checked
     };
 
-    determineTableConfig = () => {
-        for(let i=0; i<this.defaultTableConfigs.length; i++) {
-            if(this.defaultTableConfigs[i].rows * this.defaultTableConfigs[i].columns >= this.selectedReaction.wells.length)
-                return this.defaultTableConfigs[i];
+    determinePlateConfig = () => {
+        for(let i=0; i<this.defaultPlateConfigs.length; i++) {
+            if(this.defaultPlateConfigs[i].rows * this.defaultPlateConfigs[i].columns >= this.selectedReaction.wells.length) {
+                this.rows = this.defaultPlateConfigs[i].rows;
+                this.columns = this.defaultPlateConfigs[i].columns;
+                return;
+            }
         }
+    }
+
+    changePlateConfig = (config) => {
+        if (config.rows * config.columns < this.selectedReaction.wells.length) {
+            alert("Invalid Configuration for this reaction");
+            return;
+        }
+        this.isCustomLayout = true;
+        this.rows = config.rows;
+        this.columns = config.columns;
     }
 }
  
