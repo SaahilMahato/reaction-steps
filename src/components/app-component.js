@@ -58,6 +58,7 @@ export class AppComponent extends LitElement {
      * @returns {html} - The markup of the component.
      */
     render() {
+        console.log("render");
         return html`
             <div class="container">
                 <header-component
@@ -68,6 +69,7 @@ export class AppComponent extends LitElement {
                 <reaction-component
                     .selectedReaction=${this.selectedReaction}
                     .selectedWells=${[]}
+                    .isCustomLayout=${{state: false}}
                 >
                 </reaction-component>
             </div>

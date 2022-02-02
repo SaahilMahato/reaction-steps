@@ -164,15 +164,16 @@ export class PlateComponent extends LitElement {
      * sets its checked property to false and removes 
      * checked from class list and adds unchecked to class list.
      */
-    updated() {
-        const wells = this.shadowRoot.querySelectorAll("well-component");
-        for (let i=0; i<wells.length; i++) {
-            wells[i].checked = false;
-            const well = wells[i].shadowRoot.querySelector(".checked");
-            if(well) {
-                well.classList.remove("checked");
-                well.classList.add("unchecked");
-            
+    updated(changedProps) {
+        if (changedProps.has("rows") || changedProps.has("columns")) {
+            const wells = this.shadowRoot.querySelectorAll("well-component");
+            for (let i=0; i<wells.length; i++) {
+                wells[i].checked = false;
+                const well = wells[i].shadowRoot.querySelector(".checked");
+                if(well) {
+                    well.classList.remove("checked");
+                    well.classList.add("unchecked");
+                }
             }
         }
     }
