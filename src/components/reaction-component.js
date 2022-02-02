@@ -53,9 +53,14 @@ export class ReactionComponent extends LitElement {
             /**
              * Determines whether the plate dimension is user set or default.
              * 
-             * @type {Object}
+             * @type {Boolean}
              */
-            isCustomLayout: { type: Object }
+            isCustomLayout: { type: Boolean },
+
+            /**
+             * Function that sets the app to use custom layout.
+             */
+            setCustomLayout: { type: Function },
         };
     }
 
@@ -74,7 +79,7 @@ export class ReactionComponent extends LitElement {
     
         this.allWells = [];
 
-        this.isCustomLayout = {state: false};
+        this.isCustomLayout = false;
 
         this.defaultPlateConfigs = [
             {rows: 2, columns: 4},
@@ -89,7 +94,8 @@ export class ReactionComponent extends LitElement {
      * @returns {html} - The markup of the component.
      */
     render() {
-        if (!this.isCustomLayout.state) this.determinePlateConfig();
+        console.log(this.isCustomLayout)
+        if (!this.isCustomLayout) this.determinePlateConfig();
         this.allWells = [...this.selectedReaction.wells];
         return html`
             <div class="wrapper">
@@ -149,7 +155,7 @@ export class ReactionComponent extends LitElement {
             alert("Invalid Configuration for this reaction");
             return;
         }
-        this.isCustomLayout = {state: true};
+        this.setCustomLayout();
         this.rows = config.rows;
         this.columns = config.columns;
         this.selectedWells = [];

@@ -38,6 +38,20 @@ export class AppComponent extends LitElement {
              * @type {Object}
              */
             selectedReaction: { type: Object },
+
+            /**
+             * Determines whether the app has a custom layout
+             * 
+             * @type {Boolean}
+             */
+            isCustomLayout: { type: Boolean },
+
+            /**
+             * The wells that the user has selected.
+             * 
+             * @type {Array} 
+             */
+            selectedWells: { type: Array }
         };
     }
 
@@ -50,6 +64,10 @@ export class AppComponent extends LitElement {
         this.reactions = reactions; // fetched from constants
 
         this.selectedReaction = this.reactions[0]; // default reaction will be the first reaction in the array
+
+        this.isCustomLayout = false;
+
+        this.selectedWells = [];
     }
 
     /**
@@ -68,8 +86,9 @@ export class AppComponent extends LitElement {
 
                 <reaction-component
                     .selectedReaction=${this.selectedReaction}
-                    .selectedWells=${[]}
-                    .isCustomLayout=${{state: false}}
+                    .selectedWells=${this.selectedWells}
+                    .isCustomLayout=${this.isCustomLayout}
+                    .setCustomLayout=${this.setCustomLayout}
                 >
                 </reaction-component>
             </div>
@@ -94,7 +113,30 @@ export class AppComponent extends LitElement {
                 temp[i].selected = false; // if not clicked set selected to false
         }
         this.reactions = [...temp]; // after looping set the reactions property to temp
+
+        this.clearCustomLayout();
     };
+
+    /**
+     * Sets the app to use custom layout.
+     */
+    setCustomLayout = () => {
+        this.isCustomLayout = true;
+    }
+
+    /**
+     * Sets the app to not use custom layout.
+     */
+    clearCustomLayout = () => {
+        this.isCustomLayout = false;
+    }
+
+    /**
+     * Clears the wells that the user has selected.
+     */
+    clearSelectedWells = () => {
+        this.selectedWells = [];
+    }
 }
 
 customElements.define('app-component', AppComponent);
